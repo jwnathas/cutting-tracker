@@ -2,11 +2,11 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#121212">
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iIzEyMTIxMiIvPjx0ZXh0IHg9IjI1NiIgeT0iMjg4IiBmb250LXNpemU9IjI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmaWxsPSIjNGRmZjg4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7imqE8L3RleHQ+PC9zdmc+">
+    <meta name="theme-color" content="#0B0D0C">
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iIzBCMDQwQyIvPjx0ZXh0IHg9IjI1NiIgeT0iMjg4IiBmb250LXNpemU9IjI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmaWxsPSIjN0NGRjlCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7imqE8L3RleHQ+PC9zdmc+">
     <title>Cutting Tracker</title>
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
@@ -14,130 +14,156 @@
 </head>
 <body>
     <div id="app">
-        <!-- TELA 1: DASHBOARD -->
-        <section id="view-dashboard" class="view active">
-            <header><h1>Dashboard</h1></header>
+        <!-- DASHBOARD -->
+        <section id="view-dashboard" class="view">
+            <header class="dash-header">
+                <div><h1 class="greeting" id="dash-greeting">Bom dia, Jônathas</h1><p class="context-phrase" id="dash-context">Foco na consistência.</p></div>
+                <div class="date-box"><p class="caption">CUTTING TRACKER</p><p class="subheading" id="dash-date">--</p></div>
+            </header>
             <div class="content">
-                <div id="decision-badge" class="badge">Analisando dados...</div>
-                <div class="grid-2">
-                    <div class="card">
-                        <small>Peso Atual</small>
-                        <h2 id="dash-peso">-- kg</h2>
-                        <small id="dash-peso-alvo">Alvo Semanal: -- kg</small>
+                <div class="dash-hero">
+                    <p class="caption">PESO ATUAL</p>
+                    <div class="dash-hero-weight"><span class="display" id="dash-peso">0.0</span><span class="heading">kg</span></div>
+                    <div class="dash-hero-delta neutral" id="dash-delta-box"><span id="dash-delta-val">Sem dados</span><span style="font-weight: 500; opacity: 0.8; margin-left: 2px;">/ 7 dias</span></div>
+                    <div class="dash-hero-progress-container"><div class="dash-hero-progress-flex"><span>Meta: 66,7 kg</span><span id="dash-progress-text">0% do caminho</span></div><div class="hero-bar-bg"><div class="hero-bar-fill" id="dash-progress-fill" style="width:0%"></div></div></div>
+                </div>
+
+                <div class="metric-grid">
+                    <div class="metric-card"><div class="metric-header"><p class="caption">BF% Estimado</p><svg class="metric-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg></div><div><p class="metric-val" id="dash-bf">--%</p><p class="metric-sub">Base: 56.9 kg Magra</p></div></div>
+                    <div class="metric-card"><div class="metric-header"><p class="caption">Dias Restantes</p><svg class="metric-icon" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg></div><div><p class="metric-val" id="dash-dias">--</p><p class="metric-sub">Alvo: 31/12/2026</p></div></div>
+                </div>
+
+                <div class="dash-status">
+                    <p class="caption" style="margin-bottom: 12px;">STATUS DO CUTTING</p>
+                    <div class="status-header"><div class="dot neutral" id="status-dot"></div><h4 class="status-title" id="status-title">COLETANDO DADOS</h4></div>
+                    <div class="status-details"><div><span class="caption">Ritmo Atual</span><span class="body" id="status-rate">-- kg / sem</span></div><div><span class="caption">Faixa Desejada</span><span class="body">-0.3 → -0.5 kg</span></div></div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header"><div><p class="caption">EVOLUÇÃO DO PESO</p><div class="chart-legend"><div class="legend-item"><div class="legend-color" style="background: var(--accent);"></div> Real</div><div class="legend-item"><div class="legend-color" style="background: var(--text-ter);"></div> Projetado</div></div></div></div>
+                    <div style="position: relative; height: 180px; width: 100%;">
+                        <div id="chart-empty-overlay" class="empty-overlay active"><p class="body" style="color:#fff; font-weight:600;">Sem dados de peso.</p></div>
+                        <canvas id="weightChart"></canvas>
                     </div>
-                    <div class="card">
-                        <small>Dias Restantes</small>
-                        <h2 id="dash-dias">--</h2>
-                        <small>Até 31/12/2026</small>
+                    <div class="chart-limits"><div><p class="caption">INÍCIO (16 SET)</p><p class="body" style="font-weight:600; color:var(--text-main);">72.0 kg</p></div><div style="text-align: right;"><p class="caption">META (31 DEZ)</p><p class="body" style="font-weight:600; color:var(--text-main);">66.7 kg</p></div></div>
+                </div>
+
+                <!-- Checklist Semanal Adicionado -->
+                <div class="summary-card">
+                    <div class="flex-between" style="margin-bottom:16px;">
+                        <p class="caption">CHECKLIST DA SEMANA</p>
+                        <p class="caption" style="color:var(--accent);">Domingo</p>
+                    </div>
+                    <div id="weekly-checklist-container">
+                        <div class="chk-item"><span class="chk-label">Bati proteína (145-165g)?</span><div class="chk-box" data-key="chk-prot" onclick="UI.toggleCheck(this)"></div></div>
+                        <div class="chk-item"><span class="chk-label">Calorias próximas à meta?</span><div class="chk-box" data-key="chk-cal" onclick="UI.toggleCheck(this)"></div></div>
+                        <div class="chk-item"><span class="chk-label">Executei os treinos?</span><div class="chk-box" data-key="chk-treino" onclick="UI.toggleCheck(this)"></div></div>
+                        <div class="chk-item"><span class="chk-label">Fiz os cardios?</span><div class="chk-box" data-key="chk-cardio" onclick="UI.toggleCheck(this)"></div></div>
+                        <div class="chk-item" style="border:none;"><span class="chk-label">Média de sono adequada?</span><div class="chk-box" data-key="chk-sono" onclick="UI.toggleCheck(this)"></div></div>
                     </div>
                 </div>
-                <div class="card chart-container">
-                    <canvas id="weightChart"></canvas>
-                </div>
+
+                <div class="photo-panel"><div class="photo-flex-header"><p class="caption">EVOLUÇÃO RECENTE</p><button class="btn-text" onclick="document.querySelector('[data-target=\'view-gallery\']').click()">Ver evolução</button></div><div class="photo-scroll" id="dash-photo-grid"><p class="body" style="padding: 10px 0;">Nenhuma foto registrada ainda.</p></div></div>
             </div>
         </section>
 
-        <!-- TELA 2: REGISTRO DIÁRIO -->
+        <!-- DIÁRIO -->
         <section id="view-log" class="view">
-            <header><h1>Registro Diário</h1></header>
-            <div class="content">
-                <div class="card">
-                    <label>Data</label>
-                    <input type="date" id="log-date">
-                </div>
-                <div class="card">
-                    <h3>Corpo</h3>
-                    <label>Peso em jejum (kg)</label>
-                    <input type="number" step="0.1" id="log-weight" placeholder="Ex: 71.5">
-                    
-                    <label>Foto do Dia (Evolução/Balança)</label>
-                    <input type="file" id="log-photo" accept="image/*" capture="environment">
-                    <div id="log-photo-preview" class="photo-preview"></div>
-                </div>
-                <div class="card">
-                    <h3>Nutrição</h3>
-                    <div class="grid-2">
-                        <div><label>Kcal</label><input type="number" id="log-kcal" placeholder="2250"></div>
-                        <div><label>Prot (g)</label><input type="number" id="log-prot" placeholder="160"></div>
-                        <div><label>Carb (g)</label><input type="number" id="log-carb" placeholder="240"></div>
-                        <div><label>Gord (g)</label><input type="number" id="log-fat" placeholder="65"></div>
-                    </div>
-                    <label>Água (Litros)</label>
-                    <input type="number" step="0.1" id="log-water" placeholder="4.0">
-                </div>
-                <div class="card">
-                    <h3>Bem-estar (1 a 5)</h3>
-                    <div class="grid-2">
-                        <div><label>Horas Sono</label><input type="number" step="0.5" id="log-sleep-hrs"></div>
-                        <div><label>Qualidade Sono</label><input type="number" min="1" max="5" id="log-sleep-qual"></div>
-                        <div><label>Fome</label><input type="number" min="1" max="5" id="log-hunger"></div>
-                        <div><label>Energia</label><input type="number" min="1" max="5" id="log-energy"></div>
-                    </div>
-                </div>
-                <div class="card">
-                    <h3>Gasto Ativo</h3>
-                    <label>Calorias Apple Watch (Kcal ativas)</label>
-                    <input type="number" id="log-watch">
-                    <label>Cardio (Tempo e Tipo)</label>
-                    <input type="text" id="log-cardio" placeholder="Ex: 35 min Bike">
-                </div>
-                <button id="btn-save-log" class="btn-primary">Salvar Registro</button>
+            <header class="log-header"><div class="date-nav"><button class="btn-nav-date" id="btn-prev-day">‹</button><div class="date-display"><p class="caption">REGISTRO DIÁRIO</p><h2 class="heading" id="log-display-date">--</h2><input type="date" id="log-date" style="display:none;"></div><button class="btn-nav-date" id="btn-next-day">›</button></div><button class="btn-today" id="btn-today">Hoje</button></header>
+            <div class="content" style="padding-top: 20px; padding-bottom: 120px;">
+                <div class="log-card" style="text-align: center;"><p class="log-section-title" style="justify-content: center;">PESO EM JEJUM</p><div class="weight-input-wrapper"><input type="number" step="0.1" inputmode="decimal" id="log-weight" class="huge-input" placeholder="00.0"><span class="huge-unit">kg</span></div><p class="target-badge">Meta de hoje: <span style="color:var(--text-main);" id="log-target-today">-- kg</span></p></div>
+                <div class="log-card"><p class="log-section-title"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg> Nutrição</p><div class="nutri-grid"><div class="nutri-box highlight"><p class="caption">PROTEÍNA (g)</p><input type="number" inputmode="numeric" pattern="[0-9]*" id="log-prot" class="ghost-input" placeholder="0"><div class="mini-bar"><div class="mini-fill" id="bar-log-prot" style="width:0%"></div></div><p class="caption" style="margin-top:6px; font-size:9px;">Meta: 155g</p></div><div class="nutri-box"><p class="caption">CALORIAS (kcal)</p><input type="number" inputmode="numeric" pattern="[0-9]*" id="log-kcal" class="ghost-input" placeholder="0"><div class="mini-bar"><div class="mini-fill" id="bar-log-kcal" style="width:0%"></div></div><p class="caption" style="margin-top:6px; font-size:9px;">Meta: 2250</p></div><div class="nutri-box"><p class="caption">CARBO (g)</p><input type="number" inputmode="numeric" pattern="[0-9]*" id="log-carb" class="ghost-input" placeholder="0"></div><div class="nutri-box"><p class="caption">GORDURA (g)</p><input type="number" inputmode="numeric" pattern="[0-9]*" id="log-fat" class="ghost-input" placeholder="0"></div></div></div>
+                <div class="log-card"><p class="log-section-title"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2c-5.33 4.55-8 8.48-8 11.8 0 4.98 3.8 8.2 8 8.2s8-3.22 8-8.2c0-3.32-2.67-7.25-8-11.8zm0 18c-3.35 0-6-2.57-6-6.2 0-2.34 1.95-5.44 6-9.14 4.05 3.7 6 6.79 6 9.14 0 3.63-2.65 6.2-6 6.2z"/></svg> Água</p><div class="water-control"><div class="water-display"><input type="number" step="0.1" inputmode="decimal" id="log-water" class="water-input" placeholder="0.0"><span class="body" style="font-weight:700;">L</span><span class="caption" style="margin-left:4px;">/ 4.0 L</span></div><button class="water-btn" id="btn-water-250">+250ml</button><button class="water-btn" id="btn-water-500">+500ml</button></div><div class="hero-bar-bg" style="height: 6px;"><div class="hero-bar-fill" id="bar-log-water" style="background:#4DA8FF; width:0%"></div></div></div>
+                <div class="log-card"><p class="log-section-title">Recuperação & Bem-Estar</p><p class="caption">SONO (Horas)</p><input type="number" step="0.5" inputmode="decimal" id="log-sleep-hrs" class="std" placeholder="Ex: 7.5" style="margin-bottom: 16px;"><p class="caption">QUALIDADE DO SONO</p><div class="segmented-control"><input type="radio" name="sleep-qual" id="sq1" value="1"><label for="sq1">1</label><input type="radio" name="sleep-qual" id="sq2" value="2"><label for="sq2">2</label><input type="radio" name="sleep-qual" id="sq3" value="3"><label for="sq3">3</label><input type="radio" name="sleep-qual" id="sq4" value="4"><label for="sq4">4</label><input type="radio" name="sleep-qual" id="sq5" value="5"><label for="sq5">5</label></div><p class="caption">FOME</p><div class="segmented-control"><input type="radio" name="hunger" id="h1" value="1"><label for="h1">1</label><input type="radio" name="hunger" id="h2" value="2"><label for="h2">2</label><input type="radio" name="hunger" id="h3" value="3"><label for="h3">3</label><input type="radio" name="hunger" id="h4" value="4"><label for="h4">4</label><input type="radio" name="hunger" id="h5" value="5"><label for="h5">5</label></div><p class="caption">ENERGIA</p><div class="segmented-control"><input type="radio" name="energy" id="e1" value="1"><label for="e1">1</label><input type="radio" name="energy" id="e2" value="2"><label for="e2">2</label><input type="radio" name="energy" id="e3" value="3"><label for="e3">3</label><input type="radio" name="energy" id="e4" value="4"><label for="e4">4</label><input type="radio" name="energy" id="e5" value="5"><label for="e5">5</label></div><p class="caption" style="margin-bottom:0">ESTRESSE</p><div class="segmented-control" style="margin-bottom:0"><input type="radio" name="stress" id="st1" value="1"><label for="st1">1</label><input type="radio" name="stress" id="st2" value="2"><label for="st2">2</label><input type="radio" name="stress" id="st3" value="3"><label for="st3">3</label><input type="radio" name="stress" id="st4" value="4"><label for="st4">4</label><input type="radio" name="stress" id="st5" value="5"><label for="st5">5</label></div></div>
+                <div class="log-card"><p class="log-section-title">Cardio Diário</p><p class="caption">TIPO</p><div class="tag-group" id="cardio-tags"><input type="radio" name="cardio-type" id="ct-bike" value="Bike"><label for="ct-bike">Bike</label><input type="radio" name="cardio-type" id="ct-run" value="Corrida"><label for="ct-run">Corrida</label><input type="radio" name="cardio-type" id="ct-walk" value="Caminhada"><label for="ct-walk">Caminhada</label><input type="radio" name="cardio-type" id="ct-hiit" value="HIIT"><label for="ct-hiit">HIIT</label><input type="radio" name="cardio-type" id="ct-other" value="Outro"><label for="ct-other">Outro</label></div><div class="grid-2"><div><p class="caption">TEMPO (min)</p><input type="number" inputmode="numeric" pattern="[0-9]*" id="log-cardio-time" class="std" placeholder="Ex: 45"></div><div><p class="caption">APPLE WATCH (kcal)</p><input type="number" inputmode="numeric" pattern="[0-9]*" id="log-watch" class="std" placeholder="Ex: 248"></div></div></div>
+                <div class="log-card"><p class="log-section-title">Performance (Musculação)</p><div id="log-workout-summary"></div></div>
+                <div class="log-card"><div class="flex-between" style="margin-bottom: 16px;"><p class="log-section-title" style="margin:0;">Medidas Corporais</p><span class="caption" id="log-last-med-date">Última: --/--</span></div><button class="btn-outline" id="btn-toggle-med">Registrar novas medidas</button><div class="measurements-panel" id="med-panel"><div class="med-row"><label>Cintura (cm)</label><input type="number" step="0.1" inputmode="decimal" id="med-cintura" placeholder="0.0"></div><div class="med-row"><label>Abdômen (cm)</label><input type="number" step="0.1" inputmode="decimal" id="med-abdomen" placeholder="0.0"></div><div class="med-row"><label>Quadril (cm)</label><input type="number" step="0.1" inputmode="decimal" id="med-quadril" placeholder="0.0"></div><div class="med-row"><label>Peito (cm)</label><input type="number" step="0.1" inputmode="decimal" id="med-peito" placeholder="0.0"></div><div class="med-row"><label>Braço (cm)</label><input type="number" step="0.1" inputmode="decimal" id="med-braco" placeholder="0.0"></div><div class="med-row"><label>Coxa (cm)</label><input type="number" step="0.1" inputmode="decimal" id="med-coxa" placeholder="0.0"></div><div class="med-row" style="border:none;"><label>Panturrilha (cm)</label><input type="number" step="0.1" inputmode="decimal" id="med-panturrilha" placeholder="0.0"></div></div></div>
+                <div class="log-card"><p class="log-section-title">Foto do Dia</p><div class="photo-upload-area"><svg class="upload-icon" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><p class="subheading">Adicionar Foto</p><p class="caption" style="margin-top:6px;">Câmera ou Galeria</p><input type="file" id="log-photo" accept="image/*" capture="environment"></div><div style="margin-top:12px; display:flex; justify-content:center;"><select id="log-photo-tag" class="std" style="width: 150px; text-align: center;"><option value="frente">Frente</option><option value="lado">Lado</option><option value="costas">Costas</option><option value="livre">Livre</option></select></div><div id="log-photo-preview" class="photo-preview"></div></div>
             </div>
+            <div class="sticky-footer"><button id="btn-save-log" class="btn-primary" style="background: var(--accent); color: #000; box-shadow: 0 4px 20px rgba(124,255,155,0.4);">SALVAR REGISTRO</button></div>
         </section>
 
-        <!-- TELA 3: TREINO -->
+        <!-- TREINO -->
         <section id="view-workout" class="view">
-            <header><h1>Treino do Dia</h1></header>
-            <div class="content">
-                <div class="card">
-                    <label>Selecionar Ficha</label>
-                    <select id="workout-day-select">
-                        <option value="1">Segunda - Peito/Ombros/Tríceps</option>
-                        <option value="2">Terça - Pernas</option>
-                        <option value="3">Quarta - Costas/Bíceps</option>
-                        <option value="4">Quinta - Posterior/Glúteos</option>
-                        <option value="5">Sexta - Ombros/Bíceps/Tríc</option>
-                        <option value="6">Sábado - Abdômen + Cardio</option>
-                        <option value="0">Domingo - Descanso</option>
-                    </select>
-                </div>
+            <header class="workout-nav-header"><div class="day-scroll-container" id="workout-day-nav"></div></header>
+            <div class="content" style="padding-top: 0; padding-bottom: 120px;">
+                <div class="workout-title-area"><h2 class="heading" id="wo-title">--</h2><p class="workout-meta" id="wo-meta">-- exercícios</p></div>
+                <div class="workout-progress-card" id="wo-progress-card"><div class="flex-between" style="margin-bottom: 8px;"><p class="caption">TREINO <span id="wo-progress-pct" style="color:var(--text-main);">0</span>% CONCLUÍDO</p><p class="caption" style="text-transform:none; color:var(--text-sec);"><span id="wo-progress-txt">0 / 6</span> exercícios</p></div><div class="hero-bar-bg" style="height: 6px;"><div class="hero-bar-fill" id="wo-progress-fill" style="width:0%"></div></div></div>
                 <div id="workout-container"></div>
-                <button id="btn-save-workout" class="btn-primary">Concluir Treino</button>
             </div>
+            <div class="sticky-footer" id="workout-footer" style="display:none;"><button id="btn-save-workout" class="btn-primary" style="background: var(--text-main); color: var(--bg-main);">CONCLUIR TREINO</button></div>
         </section>
 
-        <!-- TELA 4: GALERIA -->
+        <!-- GALERIA -->
         <section id="view-gallery" class="view">
-            <header><h1>Galeria</h1></header>
-            <div class="content">
-                <div id="gallery-grid" class="gallery-grid"></div>
+            <header class="gallery-nav-header">
+                <div class="gal-header-top"><div><h1 class="heading">Evolução</h1><p class="caption" style="margin-top:4px;">Desde: <span id="gal-start-date" style="color:var(--text-main);">--/--/----</span></p></div><div><h2 class="heading" id="gal-count" style="color:var(--accent); display:inline;">0</h2> <span class="caption">FOTOS</span></div></div>
+                <div class="day-scroll-container" id="gal-filters"><div class="day-pill active" data-filter="all">Todas</div><div class="day-pill" data-filter="peso">Com Peso</div><div class="day-pill" data-filter="frente">Frente</div><div class="day-pill" data-filter="lado">Lado</div><div class="day-pill" data-filter="costas">Costas</div></div>
+            </header>
+            <div class="content" style="padding-top: 10px;">
+                <button id="btn-compare-start" class="btn-primary" style="background: var(--card-elevated); color: var(--text-main); border: 1px solid var(--border); box-shadow: none;">COMPARAR EVOLUÇÃO</button>
+                <div id="gallery-grid"></div> <!-- Grid renderizado dinamicamente por Mês -->
             </div>
         </section>
 
-        <!-- TELA 7: HISTÓRICO -->
-        <section id="view-history" class="view">
-            <header><h1>Histórico Completo</h1></header>
-            <div class="content">
-                <button id="btn-export-csv" class="btn-primary" style="margin-bottom:15px;">Exportar CSV</button>
-                <div class="table-container">
-                    <table id="history-table">
-                        <thead>
-                            <tr><th>Data</th><th>Peso</th><th>Kcal</th><th>Prot</th><th>Cardio</th></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
+        <!-- ANÁLISE -->
+        <section id="view-analysis" class="view">
+            <header class="analysis-header">
+                <div class="an-header-top"><div><h1 class="heading">Análise</h1><p class="caption" style="margin-top:4px;">Sua evolução em dados</p></div><button id="btn-open-data" class="btn-text" style="color:var(--text-main); font-size:13px; background: var(--card-bg); padding: 8px 14px; border-radius: 12px; border: 1px solid var(--border);">Gerenciar Dados</button></div>
+                <div class="day-scroll-container" id="analysis-period-nav" style="padding: 0;"><div class="day-pill" data-days="7">7 dias</div><div class="day-pill active" data-days="30">30 dias</div><div class="day-pill" data-days="90">90 dias</div><div class="day-pill" data-days="all">Tudo</div></div>
+            </header>
+            <div class="content" style="padding-top: 20px;">
+                <div class="chart-card"><div class="flex-between" style="margin-bottom:12px;"><p class="caption">EVOLUÇÃO DO PESO</p><div class="an-delta-badge neutral" id="an-peso-delta">-- kg</div></div><h2 class="display" id="an-peso-atual" style="font-size: 36px; margin-bottom:20px;">-- kg</h2><div class="chart-legend" style="margin-bottom:12px;"><div class="legend-item"><div class="legend-color" style="background: var(--accent);"></div> Real</div><div class="legend-item"><div class="legend-color" style="background: var(--text-ter);"></div> Projetado</div></div><div class="chart-wrapper"><div id="chart-empty-peso" class="empty-overlay active"><p class="body" style="color:#fff; font-weight:600;">Sem dados de peso.</p></div><canvas id="anWeightChart"></canvas></div></div>
+                <div class="chart-card"><p class="caption" style="margin-bottom:12px;">COMPOSIÇÃO CORPORAL</p><div class="stat-row"><span class="stat-lbl">BF% Atual</span><span class="stat-val" id="an-bf-atual" style="color:var(--accent);">--%</span></div><div class="stat-row"><span class="stat-lbl">BF% Inicial</span><span class="stat-val" id="an-bf-inicial">--%</span></div><div class="stat-row" style="border-bottom: 1px solid var(--border); margin-bottom:20px;"><span class="stat-lbl">Meta</span><span class="stat-val">~15.0%</span></div><div class="chart-legend" style="margin-bottom:12px;"><div class="legend-item"><div class="legend-color" style="background: #4DA8FF;"></div> BF% Estimado</div></div><div class="chart-wrapper"><div id="chart-empty-bf" class="empty-overlay active"><p class="body" style="color:#fff; font-weight:600;">Sem dados.</p></div><canvas id="anBfChart"></canvas></div></div>
+                <div class="chart-card"><p class="caption" style="margin-bottom:12px;">ADERÊNCIA NUTRICIONAL</p><div class="stat-row"><span class="stat-lbl">Proteína Média</span><span class="stat-val" id="an-prot-avg" style="color:var(--accent);">-- g</span></div><div class="stat-row" style="margin-bottom:20px; border-bottom: 1px solid var(--border);"><span class="stat-lbl">Calorias Médias</span><span class="stat-val" id="an-kcal-avg">-- kcal</span></div><div class="chart-legend" style="margin-bottom:12px;"><div class="legend-item"><div class="legend-color" style="background: var(--accent);"></div> Proteína (g)</div><div class="legend-item"><div class="legend-color" style="background: var(--text-sec);"></div> Kcal</div></div><div class="chart-wrapper"><div id="chart-empty-nutri" class="empty-overlay active"><p class="body" style="color:#fff; font-weight:600;">Sem dados.</p></div><canvas id="anNutriChart"></canvas></div></div>
+                <div class="chart-card"><p class="caption" style="margin-bottom:12px;">MEDIDAS CORPORAIS</p><div class="stat-row"><span class="stat-lbl">Cintura (Variação)</span><span class="stat-val" id="an-med-cintura">-- cm</span></div><div class="stat-row" style="margin-bottom:20px; border-bottom: 1px solid var(--border);"><span class="stat-lbl">Abdômen (Variação)</span><span class="stat-val" id="an-med-abdomen">-- cm</span></div><div class="chart-legend" style="margin-bottom:12px;"><div class="legend-item"><div class="legend-color" style="background: #FFC042;"></div> Cintura</div><div class="legend-item"><div class="legend-color" style="background: #FF5454;"></div> Abdômen</div></div><div class="chart-wrapper"><div id="chart-empty-med" class="empty-overlay active"><p class="body" style="color:#fff; font-weight:600;">Sem dados.</p></div><canvas id="anMedChart"></canvas></div></div>
+                <div class="chart-card"><p class="caption" style="margin-bottom:12px;">FORÇA & PROGRESSÃO</p><select id="an-strength-select" class="select-premium"><option value="">Carregando exercícios...</option></select><div class="stat-row"><span class="stat-lbl">Última Carga</span><span class="stat-val" id="an-str-last" style="color:var(--accent);">-- kg</span></div><div class="stat-row"><span class="stat-lbl">Carga Máxima</span><span class="stat-val" id="an-str-max">-- kg</span></div><div class="stat-row" style="margin-bottom:20px; border-bottom: 1px solid var(--border);"><span class="stat-lbl">Evolução no Período</span><span class="stat-val" id="an-str-delta">-- kg</span></div><div class="chart-wrapper"><div id="chart-empty-str" class="empty-overlay active"><p class="body" style="color:#fff; font-weight:600;">Sem dados.</p></div><canvas id="anStrengthChart"></canvas></div></div>
+                <div class="chart-card" style="background: transparent; border: none; padding: 0;"><p class="caption" style="margin-bottom:12px;">INSIGHTS DO PERÍODO</p><div id="an-insights-container"><div class="insight-box"><p>Analisando seus dados...</p></div></div></div>
             </div>
         </section>
+
+        <!-- DADOS E BACKUP -->
+        <section id="view-data" class="view">
+            <header class="page-header" style="z-index: 100;"><div class="flex-between"><h1 class="heading">Histórico & Dados</h1><button class="btn-text" onclick="UI.loadView('view-analysis')">Voltar</button></div></header>
+            <div class="content" style="padding-top: 20px;">
+                
+                <div class="card" style="padding:0; overflow:hidden;">
+                    <div style="padding: 16px; border-bottom: 1px solid var(--border); background: var(--bg-sec);"><p class="caption">PREFERÊNCIAS DO APLICATIVO</p></div>
+                    <div style="padding: 16px;">
+                        <button id="btn-toggle-theme" class="btn-outline" style="margin-bottom:0;">ALTERNAR TEMA (Escuro / Claro)</button>
+                    </div>
+                </div>
+
+                <div class="card" style="padding:0; overflow:hidden;">
+                    <div style="padding: 16px; border-bottom: 1px solid var(--border); background: var(--bg-sec);"><p class="caption">GERENCIAMENTO E BACKUP</p></div>
+                    <div style="padding: 16px;">
+                        <button id="btn-export-csv" class="btn-outline">EXPORTAR CSV (Planilha)</button>
+                        <div class="grid-2" style="margin-top: 12px;">
+                            <button id="btn-backup-json" class="btn-primary" style="margin:0; background: var(--text-main); color: var(--bg-main); font-size:13px;">FAZER BACKUP</button>
+                            <button id="btn-restore-click" class="btn-primary" style="margin:0; background: var(--card-elevated); color: var(--text-main); border: 1px solid var(--border); box-shadow: none; font-size:13px;">RESTAURAR</button>
+                            <input type="file" id="input-restore-json" accept=".json" style="display:none;">
+                        </div>
+                    </div>
+                </div>
+                <div class="day-scroll-container" id="history-filters" style="padding: 0; margin-bottom: 8px;"><div class="day-pill active" data-filter="all">Todos</div><div class="day-pill" data-filter="peso">Peso</div><div class="day-pill" data-filter="nutri">Nutrição</div><div class="day-pill" data-filter="treino">Treino</div><div class="day-pill" data-filter="medidas">Medidas</div></div>
+                <div id="history-list" style="display: flex; flex-direction: column; gap: 12px;"></div>
+            </div>
+        </section>
+
+        <!-- Modais Globais -->
+        <div id="lb-modal" class="lightbox"><div class="lb-header"><p class="caption">VISUALIZADOR</p><button class="lb-close" onclick="UI.closeLightbox()">×</button></div><div class="lb-content"><img id="lb-img" class="lb-img" src=""><button class="lb-nav prev" onclick="UI.navLightbox(-1)">‹</button><button class="lb-nav next" onclick="UI.navLightbox(1)">›</button></div><div class="lb-overlay"><h2 id="lb-date">--</h2><p id="lb-weight">--</p></div></div>
+        <div id="compare-selector" class="selector-modal"><header class="page-header"><div class="flex-between"><h2 class="heading">Selecionar Fotos</h2><button class="btn-text" style="color:var(--text-sec); font-size:16px;" onclick="UI.closeCompareSelector()">Cancelar</button></div><p class="body" style="margin-top:8px;">Selecione <span id="comp-sel-step" style="color:var(--accent); font-weight:700;">ANTES</span></p></header><div class="content" style="padding-top:20px;"><div id="comp-sel-grid" class="gallery-grid-2"></div></div></div>
+        <div id="compare-view" class="compare-modal"><header class="compare-header"><h3 class="heading" style="font-size:18px;">Comparação</h3><button class="btn-text" style="color:var(--text-sec); font-size:32px; line-height:1; width:44px; height:44px; display:flex; align-items:center; justify-content:center;" onclick="UI.closeCompareView()">×</button></header><div class="compare-workspace" id="cw-workspace"></div><div class="compare-controls"><button class="btn-primary" style="flex:1; background:var(--card-elevated); color:var(--text-main);" onclick="UI.setCompareMode('side')">Lado a Lado</button><button class="btn-primary" style="flex:1; background:var(--text-main); color:var(--bg-main);" onclick="UI.setCompareMode('slider')">Slider ↔</button></div></div>
+
     </div>
 
     <!-- NAVEGAÇÃO INFERIOR -->
     <nav class="bottom-nav">
-        <a href="#" data-target="view-dashboard" class="nav-item active">Dash</a>
-        <a href="#" data-target="view-log" class="nav-item">Diário</a>
-        <a href="#" data-target="view-workout" class="nav-item">Treino</a>
-        <a href="#" data-target="view-gallery" class="nav-item">Fotos</a>
-        <a href="#" data-target="view-history" class="nav-item">Dados</a>
+        <a href="#" data-target="view-dashboard" class="nav-item active"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>Dash</a>
+        <a href="#" data-target="view-log" class="nav-item"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>Diário</a>
+        <a href="#" data-target="view-workout" class="nav-item"><svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43 1.43-1.43z"/></svg>Treino</a>
+        <a href="#" data-target="view-gallery" class="nav-item"><svg viewBox="0 0 24 24"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg>Fotos</a>
+        <a href="#" data-target="view-analysis" class="nav-item"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>Análise</a>
     </nav>
 
     <script src="app.js"></script>
