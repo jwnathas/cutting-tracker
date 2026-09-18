@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#121212">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iIzEyMTIxMiIvPjx0ZXh0IHg9IjI1NiIgeT0iMjg4IiBmb250LXNpemU9IjI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmaWxsPSIjNGRmZjg4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7imqE8L3RleHQ+PC9zdmc+">
+    <title>Cutting Tracker</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- TELA 1: DASHBOARD -->
+        <section id="view-dashboard" class="view active">
+            <header><h1>Dashboard</h1></header>
+            <div class="content">
+                <div id="decision-badge" class="badge">Analisando dados...</div>
+                <div class="grid-2">
+                    <div class="card">
+                        <small>Peso Atual</small>
+                        <h2 id="dash-peso">-- kg</h2>
+                        <small id="dash-peso-alvo">Alvo Semanal: -- kg</small>
+                    </div>
+                    <div class="card">
+                        <small>Dias Restantes</small>
+                        <h2 id="dash-dias">--</h2>
+                        <small>Até 31/12/2026</small>
+                    </div>
+                </div>
+                <div class="card chart-container">
+                    <canvas id="weightChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- TELA 2: REGISTRO DIÁRIO -->
+        <section id="view-log" class="view">
+            <header><h1>Registro Diário</h1></header>
+            <div class="content">
+                <div class="card">
+                    <label>Data</label>
+                    <input type="date" id="log-date">
+                </div>
+                <div class="card">
+                    <h3>Corpo</h3>
+                    <label>Peso em jejum (kg)</label>
+                    <input type="number" step="0.1" id="log-weight" placeholder="Ex: 71.5">
+                    
+                    <label>Foto do Dia (Evolução/Balança)</label>
+                    <input type="file" id="log-photo" accept="image/*" capture="environment">
+                    <div id="log-photo-preview" class="photo-preview"></div>
+                </div>
+                <div class="card">
+                    <h3>Nutrição</h3>
+                    <div class="grid-2">
+                        <div><label>Kcal</label><input type="number" id="log-kcal" placeholder="2250"></div>
+                        <div><label>Prot (g)</label><input type="number" id="log-prot" placeholder="160"></div>
+                        <div><label>Carb (g)</label><input type="number" id="log-carb" placeholder="240"></div>
+                        <div><label>Gord (g)</label><input type="number" id="log-fat" placeholder="65"></div>
+                    </div>
+                    <label>Água (Litros)</label>
+                    <input type="number" step="0.1" id="log-water" placeholder="4.0">
+                </div>
+                <div class="card">
+                    <h3>Bem-estar (1 a 5)</h3>
+                    <div class="grid-2">
+                        <div><label>Horas Sono</label><input type="number" step="0.5" id="log-sleep-hrs"></div>
+                        <div><label>Qualidade Sono</label><input type="number" min="1" max="5" id="log-sleep-qual"></div>
+                        <div><label>Fome</label><input type="number" min="1" max="5" id="log-hunger"></div>
+                        <div><label>Energia</label><input type="number" min="1" max="5" id="log-energy"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Gasto Ativo</h3>
+                    <label>Calorias Apple Watch (Kcal ativas)</label>
+                    <input type="number" id="log-watch">
+                    <label>Cardio (Tempo e Tipo)</label>
+                    <input type="text" id="log-cardio" placeholder="Ex: 35 min Bike">
+                </div>
+                <button id="btn-save-log" class="btn-primary">Salvar Registro</button>
+            </div>
+        </section>
+
+        <!-- TELA 3: TREINO -->
+        <section id="view-workout" class="view">
+            <header><h1>Treino do Dia</h1></header>
+            <div class="content">
+                <div class="card">
+                    <label>Selecionar Ficha</label>
+                    <select id="workout-day-select">
+                        <option value="1">Segunda - Peito/Ombros/Tríceps</option>
+                        <option value="2">Terça - Pernas</option>
+                        <option value="3">Quarta - Costas/Bíceps</option>
+                        <option value="4">Quinta - Posterior/Glúteos</option>
+                        <option value="5">Sexta - Ombros/Bíceps/Tríc</option>
+                        <option value="6">Sábado - Abdômen + Cardio</option>
+                        <option value="0">Domingo - Descanso</option>
+                    </select>
+                </div>
+                <div id="workout-container"></div>
+                <button id="btn-save-workout" class="btn-primary">Concluir Treino</button>
+            </div>
+        </section>
+
+        <!-- TELA 4: GALERIA -->
+        <section id="view-gallery" class="view">
+            <header><h1>Galeria</h1></header>
+            <div class="content">
+                <div id="gallery-grid" class="gallery-grid"></div>
+            </div>
+        </section>
+
+        <!-- TELA 7: HISTÓRICO -->
+        <section id="view-history" class="view">
+            <header><h1>Histórico Completo</h1></header>
+            <div class="content">
+                <button id="btn-export-csv" class="btn-primary" style="margin-bottom:15px;">Exportar CSV</button>
+                <div class="table-container">
+                    <table id="history-table">
+                        <thead>
+                            <tr><th>Data</th><th>Peso</th><th>Kcal</th><th>Prot</th><th>Cardio</th></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- NAVEGAÇÃO INFERIOR -->
+    <nav class="bottom-nav">
+        <a href="#" data-target="view-dashboard" class="nav-item active">Dash</a>
+        <a href="#" data-target="view-log" class="nav-item">Diário</a>
+        <a href="#" data-target="view-workout" class="nav-item">Treino</a>
+        <a href="#" data-target="view-gallery" class="nav-item">Fotos</a>
+        <a href="#" data-target="view-history" class="nav-item">Dados</a>
+    </nav>
+
+    <script src="app.js"></script>
+</body>
+</html>

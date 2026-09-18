@@ -1,0 +1,16 @@
+{
+  "name": "Cutting Tracker",
+  "short_name": "Cutting",
+  "description": "App pessoal de acompanhamento de cutting e recomposição corporal.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#121212",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iIzEyMTIxMiIvPjx0ZXh0IHg9IjI1NiIgeT0iMjg4IiBmb250LXNpemU9IjI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmaWxsPSIjNGRmZjg4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7imqE8L3RleHQ+PC9zdmc+",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
